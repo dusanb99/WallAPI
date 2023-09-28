@@ -13,7 +13,8 @@ namespace WallAPI.DTO
 
         public List<Comment> Comments { get; set; }
 
-       // public int NumberOfViews { get; set; }
+       
+        public int NumberOfViews { get; set; }
 
     }
 }
