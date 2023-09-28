@@ -11,6 +11,13 @@ namespace WallAPI.Config
         {
            
             CreateMap<UserRegisterDTO, User>().ReverseMap();
+
+            CreateMap<PostDTO, Post>().ReverseMap();
+            CreateMap<PostOutDTO, Post>().ReverseMap();
+
+            CreateMap<CommentDTO, Comment>().ReverseMap();
+            
+
         }
     }
 }

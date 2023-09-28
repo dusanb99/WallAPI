@@ -7,6 +7,7 @@ using WallAPI;
 using WallAPI.Config;
 using WallAPI.Repositories;
 using WallAPI.Repositories.Interface;
+using WallAPI.Repositories.Interfaces;
 using WallAPI.Services;
 using WallAPI.Services.Interfaces;
 
@@ -29,6 +30,12 @@ builder.Services.AddDbContext<WallDbContext>(options =>
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 //Auth
 builder.Services.AddAuthentication(options =>

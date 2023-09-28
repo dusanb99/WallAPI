@@ -26,7 +26,7 @@ namespace WallAPI.Controllers
 
             if(tokenDto.Error.IsNullOrEmpty()) { 
 
-                return Ok(tokenDto);
+                return Ok(tokenDto.Value);
             }
             else
             {
@@ -45,7 +45,7 @@ namespace WallAPI.Controllers
 
             if (userToReturn != null)
             {
-                return Ok(userToReturn);
+                return Ok(true);
             }
             else
             {

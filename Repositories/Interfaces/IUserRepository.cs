@@ -4,8 +4,8 @@ namespace WallAPI.Repositories.Interface
 {
     public interface IUserRepository
     {
-        Task AddUser(User user);
-        Task<User> GetUser(string username);
-        Task<User?> GetUserByEmail(string email);
+        public Task AddUser(User user);
+        public Task<User> GetUser(string username);
+        public Task<User?> GetUserByEmail(string email);
     }
 }
