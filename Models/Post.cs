@@ -15,5 +15,11 @@
         public DateTime CreatedAt { get; set; }
 
         public List <Comment> Comments { get; set; }
+
+        public int PostRating { get; set; }
+
+        public int NumberOfViews { get; set; }
+
+        
     }
 }

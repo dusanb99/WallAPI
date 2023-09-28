@@ -6,8 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using WallAPI.DTO;
 using WallAPI.Models;
-using WallAPI.Repositories;
-using WallAPI.Repositories.Interface;
+using WallAPI.Repositories.Interfaces;
 using WallAPI.Services.Interfaces;
 
 namespace WallAPI.Services

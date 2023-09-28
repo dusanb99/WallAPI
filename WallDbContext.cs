@@ -16,6 +16,8 @@ namespace WallAPI
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
+        
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,6 +47,8 @@ namespace WallAPI
                 .HasForeignKey(x => x.OriginPostId)
                 .OnDelete(DeleteBehavior.Restrict);
             });
+
+            
 
 
 

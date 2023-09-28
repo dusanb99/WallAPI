@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WallAPI.Models;
-using WallAPI.Repositories.Interface;
+using WallAPI.Repositories.Interfaces;
 
 namespace WallAPI.Repositories
 {

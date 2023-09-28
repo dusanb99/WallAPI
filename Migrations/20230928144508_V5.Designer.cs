@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WallAPI;
 
@@ -11,9 +12,11 @@ using WallAPI;
 namespace WallAPI.Migrations
 {
     [DbContext(typeof(WallDbContext))]
-    partial class WallDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230928144508_V5")]
+    partial class V5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,6 +49,28 @@ namespace WallAPI.Migrations
                     b.HasIndex("OriginPostId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("WallAPI.Models.Label", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OriginPostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OriginPostId");
+
+                    b.ToTable("Labels");
                 });
 
             modelBuilder.Entity("WallAPI.Models.Post", b =>
@@ -119,6 +144,17 @@ namespace WallAPI.Migrations
                     b.Navigation("OriginPost");
                 });
 
+            modelBuilder.Entity("WallAPI.Models.Label", b =>
+                {
+                    b.HasOne("WallAPI.Models.Post", "OriginPost")
+                        .WithMany("Labels")
+                        .HasForeignKey("OriginPostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("OriginPost");
+                });
+
             modelBuilder.Entity("WallAPI.Models.Post", b =>
                 {
                     b.HasOne("WallAPI.Models.User", "User")
@@ -133,6 +169,8 @@ namespace WallAPI.Migrations
             modelBuilder.Entity("WallAPI.Models.Post", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Labels");
                 });
 
             modelBuilder.Entity("WallAPI.Models.User", b =>

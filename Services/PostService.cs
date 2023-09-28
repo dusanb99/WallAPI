@@ -2,7 +2,6 @@
 using Microsoft.IdentityModel.Tokens;
 using WallAPI.DTO;
 using WallAPI.Models;
-using WallAPI.Repositories.Interface;
 using WallAPI.Repositories.Interfaces;
 using WallAPI.Services.Interfaces;
 
@@ -52,6 +51,14 @@ namespace WallAPI.Services
         public async Task<IEnumerable<PostOutDTO>> GetAllPosts()
         {
             var posts = await _postRepository.GetAllPosts();
+
+            if (posts == null) { 
+                return null;
+            }
+            foreach (var post in posts)
+            {
+                post.NumberOfViews++;
+            }
 
             return _mapper.Map<IEnumerable<PostOutDTO>>(posts);
         }

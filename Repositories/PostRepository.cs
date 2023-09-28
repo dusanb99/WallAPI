@@ -19,6 +19,7 @@ namespace WallAPI.Repositories
 
         public async Task CreatePost(Post post)
         {
+            post.NumberOfViews = 0;
            await _context.Posts.AddAsync(post);
            await _context.SaveChangesAsync();
         }

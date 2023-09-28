@@ -2,7 +2,6 @@
 using Microsoft.IdentityModel.Tokens;
 using WallAPI.DTO;
 using WallAPI.Models;
-using WallAPI.Repositories.Interface;
 using WallAPI.Repositories.Interfaces;
 using WallAPI.Services.Interfaces;
 

@@ -6,7 +6,6 @@ using System.Text;
 using WallAPI;
 using WallAPI.Config;
 using WallAPI.Repositories;
-using WallAPI.Repositories.Interface;
 using WallAPI.Repositories.Interfaces;
 using WallAPI.Services;
 using WallAPI.Services.Interfaces;

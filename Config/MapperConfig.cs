@@ -19,6 +19,8 @@ namespace WallAPI.Config
             CreateMap<CommentDTO, Comment>().ReverseMap();
 
             CreateMap<CommentUpdateDTO, Comment>().ReverseMap();
+
+            
             
 
         }

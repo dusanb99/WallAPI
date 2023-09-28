@@ -1,6 +1,6 @@
 ﻿using WallAPI.Models;
 
-namespace WallAPI.Repositories.Interface
+namespace WallAPI.Repositories.Interfaces
 {
     public interface IUserRepository
     {
