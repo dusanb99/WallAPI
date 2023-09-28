@@ -62,11 +62,13 @@ namespace WallAPI.Services
         {
             var tempComment = await _commentRepository.GetOneComment(commentDeleteDto.Id);
 
-            if ( tempComment == null)
+            var tempIsMyPost = await _commentRepository.IsMyPost(commentDeleteDto.OriginPostId, commentDeleteDto.RequestorUsername);
+            if (tempComment == null || 
+                (commentDeleteDto.RequestorUsername != tempComment.CreatorUsername && !tempIsMyPost))
             {
                 return false;
             }
-
+            
             _commentRepository.DeleteOneComment(tempComment);
             return true;
         }
