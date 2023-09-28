@@ -8,5 +8,6 @@ namespace WallAPI.Repositories.Interfaces
         Task DeleteOneComment(Comment comment);
         Task<List<Comment>> GetAllCommentsOfOnePost(int postId);
         Task<Comment> GetOneComment(int id);
+        Task UpdateComment(Comment comment);
     }
 }

@@ -33,6 +33,8 @@ namespace WallAPI
                 p.HasOne(x => x.User)
                 .WithMany(p => p.Posts)
                 .OnDelete(DeleteBehavior.Restrict);
+                p.HasMany(x => x.Comments)
+                .WithOne(c => c.OriginPost);
             });
 
             modelBuilder.Entity<Comment>(c =>
@@ -40,6 +42,7 @@ namespace WallAPI
                 c.HasKey(x => x.Id);
                 c.HasOne(x => x.OriginPost)
                 .WithMany(p => p.Comments)
+                .HasForeignKey(x => x.OriginPostId)
                 .OnDelete(DeleteBehavior.Restrict);
             });
 

@@ -9,5 +9,6 @@ namespace WallAPI.Services.Interfaces
         Task<bool> CreateComment(CommentDTO commentDTO);
         Task<bool> DeleteOneComment(CommentDeleteDTO commentDeleteDto);
         Task<List<Comment>> GetAllCommentsOfOnePost(CommentGetAllDTO commentDTO);
+        Task<CommentUpdateDTO> UpdateComment(CommentUpdateDTO commentUpdateDto);
     }
 }

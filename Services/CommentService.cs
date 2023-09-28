@@ -73,8 +73,36 @@ namespace WallAPI.Services
 
         public async Task<List<Comment>> GetAllCommentsOfOnePost(CommentGetAllDTO commentDTO)
         {
+            var tempPost = _postRepository.GetOnePost(commentDTO.OriginPostId);
+            if (tempPost == null)
+            {
+                return null;
+            }
             return await _commentRepository.GetAllCommentsOfOnePost(commentDTO.OriginPostId);
            
         }
+
+        public async Task<CommentUpdateDTO> UpdateComment(CommentUpdateDTO commentUpdateDto)
+        {
+
+            var existingComment = await _commentRepository.GetOneComment(commentUpdateDto.Id);
+
+            if (existingComment == null
+                || !existingComment.CreatorUsername.Equals(commentUpdateDto.CreatorUsername)
+                || existingComment.OriginPostId != commentUpdateDto.OriginPostId)
+            {
+                return null;
+            }
+
+            
+
+            existingComment.Message = commentUpdateDto.Message;
+
+            _commentRepository.UpdateComment(existingComment);
+            return _mapper.Map<CommentUpdateDTO>(existingComment);
+
+        }
+
+
     }
 }

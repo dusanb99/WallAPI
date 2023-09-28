@@ -13,25 +13,27 @@ namespace WallAPI.Services
 
         public readonly IPostRepository _postRepository;
         public readonly IUserRepository _userRepository;
+        public readonly ICommentRepository _commentRepository;
         public IMapper _mapper;
 
-        public PostService (IPostRepository postRepository, IMapper mapper, IUserRepository userRepository )
+        public PostService(IPostRepository postRepository, IMapper mapper, IUserRepository userRepository, ICommentRepository commentRepository)
         {
             _postRepository = postRepository;
             _mapper = mapper;
             _userRepository = userRepository;
+            _commentRepository = commentRepository;
         }
 
-        public async Task<bool> CreatePost (PostDTO postDTO)
+        public async Task<bool> CreatePost(PostDTO postDTO)
         {
-            if(postDTO.CreatorUsername.IsNullOrEmpty() || 
-                postDTO.Message.IsNullOrEmpty() ) 
+            if (postDTO.CreatorUsername.IsNullOrEmpty() ||
+                postDTO.Message.IsNullOrEmpty())
             {
                 return false;
             }
 
             var tempUser = await _userRepository.GetUser(postDTO.CreatorUsername);
-            if( tempUser == null )
+            if (tempUser == null)
             {
                 return false;
             }
@@ -39,11 +41,11 @@ namespace WallAPI.Services
             var tempPost = _mapper.Map<Post>(postDTO);
             tempPost.User = tempUser;
             tempPost.CreatedAt = DateTime.Now;
-            tempPost.UserId = tempUser.Id; 
+            tempPost.UserId = tempUser.Id;
             tempPost.CreatorUsername = tempUser.Username;
 
             await _postRepository.CreatePost(tempPost);
-            
+
             return true;
         }
 
@@ -63,10 +65,16 @@ namespace WallAPI.Services
                 return false;
             }
 
-            var tempUser =await _userRepository.GetUser(postDeleteDTO.Username);
-            if ( tempUser == null || !tempPost.CreatorUsername.Equals(tempUser.Username))
+            var tempUser = await _userRepository.GetUser(postDeleteDTO.Username);
+            if (tempUser == null || !tempPost.CreatorUsername.Equals(tempUser.Username))
             {
                 return false;
+            }
+
+            var comments = await _commentRepository.GetAllCommentsOfOnePost(postDeleteDTO.Id);
+            foreach (var comment in comments)
+            {
+                _commentRepository.DeleteOneComment(comment);
             }
 
             await _postRepository.DeleteOnePost(tempPost);
@@ -74,6 +82,26 @@ namespace WallAPI.Services
             return true;
         }
 
+        public async Task<PostOutDTO> UpdatePost(PostUpdateDTO postUpdateDto)
+        {
 
+            var existingPost = await _postRepository.GetOnePost(postUpdateDto.Id);
+
+            if (existingPost == null)
+            {
+                return null;
+            }
+
+            if (existingPost.CreatorUsername != postUpdateDto.CreatorUsername)
+            {
+                return null;
+            }
+
+            existingPost.Message = postUpdateDto.Message;
+
+            _postRepository.UpdatePost(existingPost);
+            return _mapper.Map<PostOutDTO>(existingPost);
+
+        }
     }
 }

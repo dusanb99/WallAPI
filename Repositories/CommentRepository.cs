@@ -39,6 +39,12 @@ namespace WallAPI.Repositories
             return await _context.Comments.Where(c =>c.Id == id).FirstOrDefaultAsync();
         }
 
+        public async Task UpdateComment(Comment comment)
+        {
+            _context.Update(comment);
+            await _context.SaveChangesAsync();
+        }
+
 
     }
 }

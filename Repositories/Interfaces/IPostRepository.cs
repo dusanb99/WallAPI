@@ -8,5 +8,6 @@ namespace WallAPI.Repositories.Interfaces
          Task DeleteOnePost(Post post);
          Task<List<Post>> GetAllPosts();
          Task<Post> GetOnePost(int id);
+         Task UpdatePost(Post post);
     }
 }

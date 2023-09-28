@@ -42,13 +42,26 @@ namespace WallAPI.Controllers
 
             if (result == null)
             {
-                return BadRequest("No comments yet.");
+                return BadRequest();
             }
             return Ok(result);
         }
-        
-            
-        
+
+        [HttpPut("update_comment")]
+
+        public async Task<ActionResult> UpdateComment(CommentUpdateDTO commentUpdateDto)
+        {
+            var result = await _commentService.UpdateComment(commentUpdateDto);
+
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
+        }
+
+
+
 
 
     }

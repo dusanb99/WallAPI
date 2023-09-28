@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
+using WallAPI.DTO;
 using WallAPI.Models;
 using WallAPI.Repositories.Interfaces;
 
@@ -36,6 +37,12 @@ namespace WallAPI.Repositories
         public async Task<Post> GetOnePost(int id)
         {
             return await _context.Posts.Where(p=> p.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task UpdatePost(Post post)
+        {
+            _context.Update(post);
+            await _context.SaveChangesAsync();
         }
 
     }

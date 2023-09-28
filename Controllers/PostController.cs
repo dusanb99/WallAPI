@@ -44,5 +44,19 @@ namespace WallAPI.Controllers
 
             return result == false ? BadRequest() : Ok("Post deleted.");
         }
+
+
+        [HttpPut ("update_post")]
+
+        public async Task<ActionResult> UpdatePost (PostUpdateDTO postUpdateDto)
+        {
+            var result = await _postService.UpdatePost(postUpdateDto);
+
+            if (result == null)
+            {
+                return BadRequest(); 
+            }
+            return Ok(result);
+        }
     }
 }
