@@ -58,7 +58,7 @@ namespace WallAPI.Services
             foreach (var post in posts)
             {
                 post.NumberOfViews++;
-                _postRepository.UpdatePost(post);
+                await _postRepository.UpdatePost(post);
             }
 
             return _mapper.Map<IEnumerable<PostOutDTO>>(posts);
