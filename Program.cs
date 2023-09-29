@@ -77,6 +77,8 @@ var mapperConfig = new MapperConfiguration(mc =>
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
+builder.Services.AddTransient<WallDbContext, WallDbContext>(); 
+
 
 var app = builder.Build();
 
@@ -91,7 +93,6 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseAuthentication();
 
 app.MapControllers();
 
